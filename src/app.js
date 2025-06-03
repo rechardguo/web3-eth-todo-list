@@ -37,10 +37,7 @@ App = {
     App.contracts.TodoList.setProvider(window.web3.currentProvider)
 
     // Hydrate the smart contract with values from the blockchain
-    App.todoList = await App.contracts.TodoList.deployed()
-
-    // deploy first task
-    await App.todoList.createTask("rechard task", { from: App.account })
+    App.todoList = await App.contracts.TodoList.deployed()   
   },
 
   render: async () => {
