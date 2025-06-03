@@ -41,3 +41,5 @@ npx truffle migrate --network development
 ```
 npm run dev
 ```
+
+![alt text](image.png)
