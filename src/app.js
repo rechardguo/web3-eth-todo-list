@@ -22,6 +22,8 @@ App = {
       // 连接本地 Ganache
       App.web3Provider = new Web3.providers.HttpProvider("https://symmetrical-lamp-xxv6655rp526xjq-7545.app.github.dev/")
       web3 = new Web3(App.web3Provider)
+      // after run `ganache-cli`  you can find the account address in the terminal 
+      App.account = '0x1D9B9426393A175E70775d67AAf4E4520ec10Dd0' // Replace with your Ganache account address
       console.log('Connected to local Ganache');
     }
   },
@@ -36,6 +38,9 @@ App = {
 
     // Hydrate the smart contract with values from the blockchain
     App.todoList = await App.contracts.TodoList.deployed()
+
+    // deploy first task
+    await App.todoList.createTask("rechard task", { from: App.account })
   },
 
   render: async () => {
@@ -93,14 +98,14 @@ App = {
   createTask: async () => {
     App.setLoading(true)
     const content = $('#newTask').val()
-    await App.todoList.createTask(content)
+    await App.todoList.createTask(content, { from: App.account })
     window.location.reload()
   },
 
   toggleCompleted: async (e) => {
     App.setLoading(true)
     const taskId = e.target.name
-    await App.todoList.toggleCompleted(taskId)
+    await App.todoList.toggleCompleted(taskId, { from: App.account })
     window.location.reload()
   },
 
